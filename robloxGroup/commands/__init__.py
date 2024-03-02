@@ -1,4 +1,4 @@
-from ..listeners import group_wall
+from ..listeners import group_wall, users
 from ..cookie    import Bypass, RobloxCookie
 from   typing    import Awaitable, Callable
 from typing import Union
@@ -48,4 +48,6 @@ class Bot:
             
     async def run(self) -> None:
         tasks = [group_wall.watch(cookie=self.cookie, group_id=self.group_id, group=self, prefix=self.prefix).start()]
+        if self.events:
+            tasks.append(users.watch(cookie=self.cookie, group_id=self.group_id, group=self).start())
         await asyncio.gather(*tasks)

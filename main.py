@@ -1,4 +1,4 @@
-import robloxGroup, asyncio
+import asyncio
 from robloxGroup import commands
 from robloxGroup.functions import role, allies
 group = commands.Bot(prefix="!", group_id=0, cookie="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|")

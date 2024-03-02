@@ -11,4 +11,8 @@ async def command_name(ctx, args):
 async def on_message(ctx):
     pass
 
+@group.event
+async def on_member_join(ctx):
+    pass
+    
 asyncio.run(group.run())

@@ -47,7 +47,9 @@ class Bot:
             return await self.events[event_name](ctx, *args)
             
     async def run(self) -> None:
-        tasks = [group_wall.watch(cookie=self.cookie, group_id=self.group_id, group=self, prefix=self.prefix).start()]
+        tasks = []
+        if self.commands or 'on_message' in self.events:
+            tasks.append(group_wall.watch(cookie=self.cookie, group_id=self.group_id, group=self, prefix=self.prefix).start())
         if self.events:
             tasks.append(users.watch(cookie=self.cookie, group_id=self.group_id, group=self).start())
         await asyncio.gather(*tasks)

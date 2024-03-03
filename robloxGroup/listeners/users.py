@@ -10,7 +10,7 @@ class watch:
         self.cookie, self.group = cookie, group
         
     async def start(self) -> None:
-        on_join_role = await role.get(self.group)["roles"][1]["id"]
+        on_join_role = (await role.get(self.group))["roles"][1]["id"]
         async with aiohttp.ClientSession() as session:
             while True:
                 async with session.get(f"https://groups.roblox.com/v1/groups/{self.group.group_id}/roles/{on_join_role}/users?cursor=&limit=100&sortOrder=Desc", cookies={".ROBLOSECURITY": self.cookie.cookie}, headers={"x-csrf-token": await self.cookie.x_token(session)}) as response:

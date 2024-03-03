@@ -4,7 +4,7 @@ from ..cookie import RobloxCookie
 from ..helpers import DotDict
 
 class watch:
-    messages: dict = []
+    messages: list = []
     checked_once = False
     def __init__(self, cookie: Type[RobloxCookie], group_id: int, prefix: str, group: Type[object]) -> None:
         self.cookie, self.group_id, self.prefix, self.group = cookie, group_id, prefix, group

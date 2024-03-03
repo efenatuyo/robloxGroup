@@ -6,13 +6,13 @@ from ..helpers import DotDict
 class watch:
     messages: list = []
     checked_once = False
-    def __init__(self, cookie: Type[RobloxCookie], group_id: int, prefix: str, group: Type[object]) -> None:
-        self.cookie, self.group_id, self.prefix, self.group = cookie, group_id, prefix, group
+    def __init__(self, cookie: Type[RobloxCookie], prefix: str, group: Type[object]) -> None:
+        self.cookie,self.prefix, self.group = cookie, prefix, group
         
     async def start(self) -> None:
         async with aiohttp.ClientSession() as session:
             while True:
-                async with session.get(f"https://groups.roblox.com/v2/groups/{self.group_id}/wall/posts?sortOrder=Desc&limit=100", cookies={".ROBLOSECURITY": self.cookie.cookie}, headers={"x-csrf-token": await self.cookie.x_token(session)}) as response:
+                async with session.get(f"https://groups.roblox.com/v2/groups/{self.group.group_id}/wall/posts?sortOrder=Desc&limit=100", cookies={".ROBLOSECURITY": self.cookie.cookie}, headers={"x-csrf-token": await self.cookie.x_token(session)}) as response:
                     if response.status == 200:
                         for message in (await response.json())["data"]:
                             if not message["id"] in self.messages:

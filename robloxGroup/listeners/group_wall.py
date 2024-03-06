@@ -29,8 +29,8 @@ class watch:
                             raise Exception(await response.json())
                     elif response.status == 400:
                         raise Exception(await response.json())
-            except: 
-                pass
-            finally: 
-                self.checked_once = True
-                await asyncio.sleep(3)
+              except: 
+                  pass
+              finally: 
+                  self.checked_once = True
+                  await asyncio.sleep(3)

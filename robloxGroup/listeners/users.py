@@ -13,6 +13,7 @@ class watch:
         on_join_role = (await role.get(self.group)).roles[1].id
         async with aiohttp.ClientSession() as session:
             while True:
+              try:
                 async with session.get(f"https://groups.roblox.com/v1/groups/{self.group.group_id}/roles/{on_join_role}/users?cursor=&limit=100&sortOrder=Desc", cookies={".ROBLOSECURITY": self.cookie.cookie}, headers={"x-csrf-token": await self.cookie.x_token(session)}) as response:
                     if response.status == 200:
                         for user in (await response.json())["data"]:
@@ -26,5 +27,8 @@ class watch:
                             raise Exception(await response.json())
                     elif response.status == 400:
                         raise Exception(await response.json())
-                    self.checked_once = True
-                    await asyncio.sleep(3)
+              except: 
+                  pass
+              finally: 
+                  self.checked_once = True
+                  await asyncio.sleep(3)

@@ -12,6 +12,7 @@ class watch:
     async def start(self) -> None:
         async with aiohttp.ClientSession() as session:
             while True:
+              try:
                 async with session.get(f"https://groups.roblox.com/v2/groups/{self.group.group_id}/wall/posts?sortOrder=Desc&limit=100", cookies={".ROBLOSECURITY": self.cookie.cookie}, headers={"x-csrf-token": await self.cookie.x_token(session)}) as response:
                     if response.status == 200:
                         for message in (await response.json())["data"]:
@@ -28,5 +29,8 @@ class watch:
                             raise Exception(await response.json())
                     elif response.status == 400:
                         raise Exception(await response.json())
-                    self.checked_once = True
-                    await asyncio.sleep(3)
+            except: 
+                pass
+            finally: 
+                self.checked_once = True
+                await asyncio.sleep(3)

@@ -13,11 +13,10 @@ async def get(group: Type[Bot], get_all: bool = False) -> Type[DotDict]:
                     response = await response.json()
                     current += 100
                     if responses:
-                        response["relatedGroups"].append(responses["relatedGroups"])
-                        responses = responses 
+                        response["relatedGroups"] += responses["relatedGroups"]
+                        responses = response
                     else:
                         responses = response
-                    responses.update(response)
                     if not get_all or responses.get("nextRowIndex") == 0:
                         return DotDict(responses)
                     else:

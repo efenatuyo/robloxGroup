@@ -1,7 +1,6 @@
 import aiohttp
 from typing import Type, Union
 from ..helpers import DotDict
-from ..helpers import DotDict
 
 async def change(group: Type[object], user_id: Union[int, str], role_id: Union[int, str]) -> Type[DotDict]:
     async with aiohttp.ClientSession() as session:

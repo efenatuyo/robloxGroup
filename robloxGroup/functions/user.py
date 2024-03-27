@@ -11,7 +11,7 @@ async def followers(group: Type[object], user_id: Union[str, int], get_all: bool
                 if response.status == 200:
                     response = await response.json()
                     if responses:
-                        responses["data"].append(response["data"])
+                        responses["data"] += response["data"]
                     else:
                         responses = response
                     if not get_all or not response.get("nextPageCursor"):

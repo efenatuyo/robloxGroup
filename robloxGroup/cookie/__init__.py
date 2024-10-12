@@ -30,10 +30,10 @@ class RobloxCookie:
     def __init__(self, cookie):
         self.cookie = cookie
         self.last_generated_time = 0
-        self._x_token = requests.post("https://economy.roblox.com/", cookies={".ROBLOSECURITY": self.cookie}).headers.get("x-csrf-token")
+        self._x_token = requests.post("https://auth.roblox.com/v2/logout", cookies={".ROBLOSECURITY": self.cookie}).headers.get("x-csrf-token")
         
     async def generate_token(self, session):
-        self._x_token = (await session.post("https://economy.roblox.com/", cookies={".ROBLOSECURITY": self.cookie})).headers.get("x-csrf-token")
+        self._x_token = (await session.post("https://auth.roblox.com/v2/logout", cookies={".ROBLOSECURITY": self.cookie})).headers.get("x-csrf-token")
         self.last_generated_time = time.time()
 
     async def x_token(self, session):
